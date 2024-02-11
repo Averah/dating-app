@@ -1,0 +1,55 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@ya.ru",
+      "password": "123456",
+      "username": "admin",
+      "info": {
+        "name": "Kate",
+        "...": "..."
+      },
+      "newMessages": [
+        {
+          "id": "",
+          "status": "NOT_READ | READ",
+          "text": "",
+          "authorId": ""
+        }
+      ]
+    },
+    {
+      "email": "yuli-kretova@yandex.ru",
+      "password": "$2a$10$VGvN93mgeVqDr.sLIjbNyOJqtEH5f9fVziorrzmZOyaKF4U7dfosK",
+      "username": "12",
+      "id": "Rwpi7LJ"
+    },
+    {
+      "email": "yuli@yandex.ru",
+      "password": "$2a$10$NT9wHrDgwQ38uJAaWvHfHOXgpXRFaQMmItNqhgyO2rIhLo/UX5nvu",
+      "username": "12",
+      "id": "nEtddPz"
+    },
+    {
+      "email": "admin@yandex.ru",
+      "password": "$2a$10$XcyE1zqf7IAKbdFabpYf..CNazbxF/J3IvyIjSlXhChFQK6yHronC",
+      "username": "name",
+      "id": "QGUjB-J"
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "",
+      "user1Id": "",
+      "user2Id": "",
+      "messages": [
+        {
+          "id": "",
+          "status": "NOT_READ | READ",
+          "text": "",
+          "authorId": ""
+        }
+      ]
+    }
+  ]
+}

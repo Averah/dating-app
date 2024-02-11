@@ -1,0 +1,18 @@
+.Navbar {
+    height: 100%;
+    width: 10%;
+    max-width: 150px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Navbar a {   
+    color:#354D73;
+    text-decoration: none;
+}
+  
+.Navbar a.active {
+    color: #24d6d6;
+    font-weight: bold;
+}
+  

@@ -1,0 +1,22 @@
+.customInput {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #c4c4c578;
+  outline: none;
+  transition: border 0.4s;
+  background: transparent;
+  font-family: inherit;
+  
+}
+
+.customInput:focus {
+  border-bottom: 1px solid rgba(83, 83, 83, 0.46);
+}
+
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill,
+input:-webkit-autofill:active,
+input:-webkit-autofill::first-line {
+       box-shadow: 0 0 0 30px #eceaf4 inset !important;
+      }

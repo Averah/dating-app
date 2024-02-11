@@ -1,0 +1,31 @@
+.Header {
+    width: 100%;
+    height: 50px;
+    background-color: rgb(235, 235, 235);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.links {
+    max-width: 1076px;
+    width: 100%;
+    padding: 20px;
+}
+
+.links a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: color 0.3s;
+    color: rgb(85, 84, 84);
+}
+
+.links a:hover {
+    color:rgb(0, 0, 0);
+}
+
+.links a.active {
+    color: rgb(0, 0, 0);
+}

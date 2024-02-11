@@ -1,0 +1,11 @@
+.PageLayout {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    min-height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}

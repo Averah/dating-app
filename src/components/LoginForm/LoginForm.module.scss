@@ -1,0 +1,62 @@
+.LoginForm {
+    padding: 0px 20px;
+    width: 100%;
+    max-width: 400px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.formInputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.submitBtn {
+    width: 100%;
+}
+
+.passwordContainer {
+    position: relative;
+}
+
+.passwordInput {
+    padding-right: 35px;
+}
+
+.emailError, .passwordError{
+    color:#e76262;
+    min-height: 21px;
+    font-size: 0.8rem;
+}
+
+.passwordIcon {
+    width: 20px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    right: 0.5%;
+    fill: rgba(78, 77, 78, 0.72);;
+    transition: 0.4s;
+  }
+
+.passwordIcon:hover {
+    fill: inherit;
+    cursor: pointer;
+  }
+
+input {
+    font-size: 16px;
+}
+
+.signUpLink {
+    text-align: end;
+    text-decoration: none;
+    align-self: flex-end;
+    padding: 20px 0px;
+
+}
