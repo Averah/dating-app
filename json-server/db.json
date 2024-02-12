@@ -5,10 +5,14 @@
       "email": "admin@ya.ru",
       "password": "123456",
       "username": "admin",
-      "info": {
-        "name": "Kate",
-        "...": "..."
-      },
+      "age": "20",
+      "city": "Санкт-Петербург",
+      "interests": "Котики, кодинг, велосипед",
+      "gender": "Мужской",
+      "friends": "6",
+      "avatar": "https://sun9-29.userapi.com/impf/_sOYLHWmZPnIFW9r_SnSrKC3Xh7vOr8cUqYcDQ/prkt4K48yfI.jpg?size=520x0&quality=95&sign=3f2986889a576d27ae275cec92e1502a",
+      "messages": "4",
+
       "newMessages": [
         {
           "id": "",
@@ -19,22 +23,43 @@
       ]
     },
     {
-      "email": "yuli-kretova@yandex.ru",
-      "password": "$2a$10$VGvN93mgeVqDr.sLIjbNyOJqtEH5f9fVziorrzmZOyaKF4U7dfosK",
-      "username": "12",
-      "id": "Rwpi7LJ"
+      "email": "a@ya.ru",
+      "password": "$2a$10$AlsWJrR827CApJqO4nqAm.w5KBxu9nMkm2Hj4owjnV01NG.UaOdIy",
+      "username": "Leo",
+      "id": "ZgGEuFz",
+      "age": "18",
+      "city": "Москва",
+      "interests": "Велосипед, гонки",
+      "gender": "Мужской",
+      "friends": "3",
+      "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp0ivvz6TY1UMD4gW6-q4HmvU5Ur-rzFALFA&usqp=CAU",
+      "messages": "5"
     },
     {
-      "email": "yuli@yandex.ru",
-      "password": "$2a$10$NT9wHrDgwQ38uJAaWvHfHOXgpXRFaQMmItNqhgyO2rIhLo/UX5nvu",
-      "username": "12",
-      "id": "nEtddPz"
+      "email": "b@ya.ru",
+      "password": "$2a$10$5RrniqKKUACzGTFPctZwnOhUfn0Xb8jnoVQ1ET0/VuiXCEzuk3lUS",
+      "username": "Kate",
+      "id": "bXBYkGa",
+      "age": "19",
+      "city": "Москва",
+      "interests": "Плавание",
+      "gender": "Женский",
+      "friends": "5",
+      "avatar": "https://ncrdo.ru/upload/medialibrary/876/876bd8b93b69f18466ca518c39921209.jpg",
+      "messages": "4"
     },
     {
-      "email": "admin@yandex.ru",
-      "password": "$2a$10$XcyE1zqf7IAKbdFabpYf..CNazbxF/J3IvyIjSlXhChFQK6yHronC",
-      "username": "name",
-      "id": "QGUjB-J"
+      "email": "ab@ya.ru",
+      "password": "$2a$10$9qKUvuKceO3.GSc64Hlzy.fqmYQaMP8YqVg8UWjeiwOzk0vX8FEhO",
+      "username": "Катя",
+      "id": "IdSBMzk",
+      "age": "33",
+      "city": "Череповец",
+      "interests": "Плавание, вязание",
+      "gender": "Женский",
+      "friends": "0",
+      "avatar": "",
+      "messages": "0"
     }
   ],
   "dialogs": [

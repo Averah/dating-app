@@ -1,26 +1,37 @@
-import React, { FC, useEffect } from 'react';
-import classNames from 'classnames';
-// import cls from './ProfilePage.module.scss';
-import authStore from '../../store/authStore';
-import { useNavigate, Navigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
+import React, { FC, useEffect } from 'react';
+import { Navigate, useParams } from 'react-router-dom';
 import Profile from '../../components/Profile/Profile';
+import authStore from '../../store/authStore';
 import usersStore from '../../store/usersStore';
+import cls from './ProfilePage.module.scss';
 
 
 export const ProfilePage: FC = observer(() => {
-
     const isAuthorized = authStore.isAuthorized;
+    const authorizedUserId = authStore.userData.id;
+    const profileData = usersStore.profileData
+    const params = useParams();
+
     useEffect(() => {
-        usersStore.fetchUsers()
+        let userId = params.userId ? params.userId : null;
+        if (!userId) {
+            userId = authorizedUserId;
+        }
+        userId && usersStore.fetchProfile(userId)
+    }, [params.userId, authorizedUserId]);
+
+    useEffect(() => {
+        return usersStore.clearProfileData()
     }, [])
 
     if (!isAuthorized) {
-            return <Navigate to='/login' />
+        return <Navigate to='/login' />
     }
+    
     return (
-        <div >
-           <Profile />
+        <div className={cls.ProfilePage} >
+            <Profile profileData={profileData} isOwner={!params.userId} />
         </div>
     );
 });

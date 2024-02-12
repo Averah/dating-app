@@ -8,6 +8,17 @@ export interface IUserData {
     id?: string
 }
 
+export interface IProfileData {
+    username: string,
+    avatar: string,
+    friends: string,
+    messages: string,
+    age: string,
+    city: string,
+    interests: string,
+    gender: string,
+}
+
 class AuthStore {
     userData = {
         email: '',
@@ -18,19 +29,14 @@ class AuthStore {
     isAuthorized = false;
     error = '';
     isLoading = false;
-
-    profileData = {
-        photo: '',
-        friendsCount: '',
-        messagesCount: '',
-        age: null,
-        city: '',
-        interests: '',
-        gender: '',
-    }
+    isSignedUp = false;
 
     constructor() {
         makeAutoObservable(this)
+    }
+
+    clearError() {
+        this.error = ''
     }
 
     login = flow(function* (this: AuthStore, loginData) {
@@ -39,11 +45,11 @@ class AuthStore {
             const response = yield axios.post('http://localhost:8000/login', loginData)
             console.log(response);
 
-                localStorage.setItem('token', (response.data.accessToken));
-                this.isAuthorized = true;
-                this.userData = response.data.user
-                console.log( this.userData);
-                this.clearError()
+            localStorage.setItem('token', (JSON.stringify(response.data.user)));
+            this.isAuthorized = true;
+            this.userData = response.data.user
+            console.log(this.userData);
+            this.clearError()
 
         } catch (error) {
             const err = error as AxiosError
@@ -54,12 +60,27 @@ class AuthStore {
         }
     })
 
+
+    logout() {
+        this.isAuthorized = false;
+        this.userData = {
+            email: '',
+            password: '',
+            username: '',
+            id: ''
+        }
+        localStorage.removeItem('token');
+    }
+
     signup = flow(function* (this: AuthStore, signUpData: IUserData) {
         try {
             this.isLoading = true;
             const response = yield axios.post('http://localhost:8000/signup', signUpData)
-
-            this.clearError()
+            console.log(response);
+            if (response.status === 201) {
+                this.isSignedUp = true;
+                this.clearError();
+            }
 
         } catch (error) {
             const err = error as AxiosError
@@ -74,22 +95,8 @@ class AuthStore {
         const isAuthorized = localStorage.getItem('token');
         if (isAuthorized) {
             this.isAuthorized = true;
+            this.userData = JSON.parse(isAuthorized)
         }
-    }
-
-    logout() {
-        this.isAuthorized = false;
-        this.userData = {
-            email: '',
-            password: '',
-            username: '',
-            id: ''
-        }
-        localStorage.removeItem('token');
-    }
-
-    clearError() {
-        this.error = ''
     }
 }
 

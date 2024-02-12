@@ -21,6 +21,7 @@ export const SignupPage: FC = observer(() => {
     const isLoading = authStore.isLoading;
     const error = authStore.error;
     const isAuthorized = authStore.isAuthorized;
+    const isSignedUp = authStore.isSignedUp;
 
     if (isAuthorized) {
         return <Navigate to='/profile' />
@@ -32,6 +33,7 @@ export const SignupPage: FC = observer(() => {
             <div>Регистрация</div>
             <SignupForm signUp={onSignUpHandler} isLoading={isLoading} clearErrors={onClearErrors} />
             {error && <div>{error}</div>}
+            {isSignedUp && <div> Регистрация прошла успешно. </div>}
         </div>
     );
 });
