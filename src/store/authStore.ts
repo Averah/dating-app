@@ -1,5 +1,5 @@
 import { flow, makeAutoObservable } from "mobx";
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 export interface IUserData {
     email: string
@@ -14,6 +14,7 @@ class AuthStore {
     }
     isAuthorized = false;
     error = '';
+    isLoading = false;
 
 
     constructor() {
@@ -22,39 +23,37 @@ class AuthStore {
 
     login = flow(function* (this: AuthStore, loginData: IUserData) {
         try {
+            this.isLoading = true
             const response = yield axios.post('http://localhost:8000/login', loginData)
-            console.log(response);
 
             if (response.status === 200) {
                 localStorage.setItem('token', (response.data.accessToken));
-                this.isAuthorized = true
+                this.isAuthorized = true;
+                this.clearError()
             }
 
         } catch (error) {
-            console.log(error);
-
-            const err = error as Error;
-            console.error('Ошибка авторизации:', err.message);
-            this.error = err.message
+            const err = error as AxiosError
+            const errorMessage = err.response?.data as string
+            this.error = errorMessage;
+        } finally {
+            this.isLoading = false
         }
     })
 
     signup = flow(function* (this: AuthStore, signUpData: IUserData) {
         try {
+            this.isLoading = true;
             const response = yield axios.post('http://localhost:8000/signup', signUpData)
-            console.log(response);
 
-            const data = yield response.json();
+            this.clearError()
 
-            if (data.success) {
-                this.isAuthorized = true;
-            } else {
-                throw new Error(data.error);
-            }
         } catch (error) {
-            const err = error as Error;
-            console.error('Ошибка регистрации:', err.message);
-            this.error = err.message
+            const err = error as AxiosError
+            const errorMessage = err.response?.data as string
+            this.error = errorMessage;
+        } finally {
+            this.isLoading = false;
         }
     })
 
@@ -72,6 +71,10 @@ class AuthStore {
             password: ''
         }
         localStorage.removeItem('token');
+    }
+
+    clearError() {
+        this.error = ''
     }
 }
 

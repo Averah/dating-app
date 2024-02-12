@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ReactComponent as EyeIcon } from '../../assets/eyeIcon.svg';
 import cls from './LoginForm.module.scss'
@@ -8,10 +8,12 @@ import { IUserData } from "../../store/authStore";
 import { NavLink } from 'react-router-dom';
 
 interface FormProps {
-    authorize: (data: IUserData) => void
+    authorize: (data: IUserData) => void;
+    clearErrors: () => void;
+    isLoading: boolean;
 }
 
-export const LoginForm: React.FC<FormProps> = memo(({ authorize }) => {
+export const LoginForm: React.FC<FormProps> = memo(({ authorize, isLoading, clearErrors }) => {
     const [passwordShown, setPasswordShown] = useState(false);
 
     const togglePasswordVisibility = () => {
@@ -27,8 +29,15 @@ export const LoginForm: React.FC<FormProps> = memo(({ authorize }) => {
 
     const onSubmit = (data: IUserData) => {
         authorize(data);
-        reset();
     };
+
+    useEffect(() => {
+        return () => reset();
+    }, [])
+
+    useEffect(() => {
+        return () => clearErrors();
+    }, [])
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={cls.LoginForm}>
@@ -63,12 +72,12 @@ export const LoginForm: React.FC<FormProps> = memo(({ authorize }) => {
                         {errors?.password && (`${errors.password?.message}` || 'Ошибка')}
                     </div>
                 </div>
-
-                <NavLink to='/signup' className={cls.signUpLink}>Зарегистрироваться</NavLink>
             </div>
-            <Button type="submit" className={cls.submitBtn}>
-                Войти
+            <NavLink to='/signup' className={cls.signUpLink}>Зарегистрироваться</NavLink>
+            <Button type="submit" className={cls.submitBtn} disabled={isLoading}>
+                {isLoading ? 'Выполняется вход...' : 'Войти'}
             </Button>
+
 
         </form>
     );
