@@ -24,16 +24,11 @@ export const SignupForm: React.FC<SignupFormProps> = memo(({ signUp, isLoading, 
         register,
         handleSubmit,
         formState: { errors },
-        reset,
     } = useForm<IUserData>({ mode: 'onBlur' });
 
     const onSubmit = (data: IUserData) => {
         signUp(data);
     };
-
-    useEffect(() => {
-        return () => reset();
-    }, []);
 
     useEffect(() => {
         return () => clearErrors();

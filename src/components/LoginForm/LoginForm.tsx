@@ -32,10 +32,6 @@ export const LoginForm: React.FC<FormProps> = memo(({ authorize, isLoading, clea
     };
 
     useEffect(() => {
-        return () => reset();
-    }, [])
-
-    useEffect(() => {
         return () => clearErrors();
     }, [])
 
