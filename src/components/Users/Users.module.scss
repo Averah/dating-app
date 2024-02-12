@@ -1,9 +1,9 @@
 .Users {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
-.Users a {
+.userCardLink {
     text-decoration: none;
 }

@@ -5,12 +5,18 @@
 }
 
 .Navbar a {   
-    color:#354D73;
+    color:#575757;
     text-decoration: none;
 }
   
 .Navbar a.active {
-    color: #24d6d6;
+    color: #4096ff;
     font-weight: bold;
 }
-  
+
+@media (max-width: 500px) {
+    .Navbar {
+    word-wrap:break-word;
+
+ }
+}

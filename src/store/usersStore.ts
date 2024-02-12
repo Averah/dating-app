@@ -65,6 +65,10 @@ class UsersStore {
         }
     }
 
+    clearUsers() {
+        this.users = []
+    }
+
 }
 
 const usersStore = new UsersStore();
