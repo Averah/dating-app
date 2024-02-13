@@ -24,7 +24,7 @@ export const ProfilePage: FC = observer(() => {
     const userId = params.userId
 
     const addToFriends = useCallback(() => {
-        userId && usersStore.addToFriends(userId);
+        (userId  && authorizedUserId) && usersStore.addToFriends(userId, authorizedUserId);
 
     }, [userId]);
 
@@ -64,6 +64,7 @@ export const ProfilePage: FC = observer(() => {
                     messages={messages}
                     addToFriends={addToFriends}
                     storeFriends={storeFriends}
+                    isMessageSent={isMessageSent}
 
                 />
             ) : (

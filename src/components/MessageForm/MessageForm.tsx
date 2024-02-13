@@ -5,13 +5,14 @@ import cls from './MessageForm.module.scss'
 
 interface MessageFormProps {
     sendMessage: (message:string) => void
+    isMessageSent: boolean
 }
 
 type UserSubmitForm = {
     message: string
 }
 
-const MessageForm: React.FC<MessageFormProps> = ({sendMessage}) => {
+const MessageForm: React.FC<MessageFormProps> = ({ sendMessage, isMessageSent }) => {
     const {
         reset,
         register,
@@ -20,7 +21,6 @@ const MessageForm: React.FC<MessageFormProps> = ({sendMessage}) => {
     } = useForm<UserSubmitForm>({ mode: "onChange" });
 
     const onSubmit = (data: UserSubmitForm) => {
-        console.log(data.message);
         sendMessage(data.message)
         reset();
     };
@@ -36,6 +36,7 @@ const MessageForm: React.FC<MessageFormProps> = ({sendMessage}) => {
                     })}
                 />
             </div>
+            {isMessageSent && <div className={cls.messageStatus}>Сообщение отправлено</div>}
             <div>
                 <Button className={cls.messageBtn} type='submit'>Отправить</Button>
             </div>

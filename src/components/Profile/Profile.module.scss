@@ -19,11 +19,15 @@
 
 .description {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .actions {
     display: flex;
     flex-direction: column;
+    gap: 3px;
     width: 100%;
     max-width: 200px;
     text-align: center;

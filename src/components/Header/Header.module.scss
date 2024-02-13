@@ -13,8 +13,9 @@
     width: 100%;
     padding: 20px;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .content a {
@@ -22,20 +23,21 @@
     font-size: 16px;
     font-weight: 600;
     transition: color 0.3s;
-    color: rgb(85, 84, 84);
+    color: #575757;
 }
 
 .content a:hover {
-    color:rgb(0, 0, 0);
+    color:#4096ff;
 }
 
 .content a.active {
-    color: rgb(0, 0, 0);
+    color:#4096ff;
+    font-weight: bold;
 }
 
 .logOutBtn {
     font-size: 16px;
     font-weight: 600;
     padding: 3px;
+    margin-left: auto;
 }
-

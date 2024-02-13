@@ -60,7 +60,6 @@ class UsersStore {
                 },
             })
             this.users = response.data
-            console.log(this.users);
 
             addQueryParams({
                 search: this.search,
@@ -101,7 +100,7 @@ class UsersStore {
     }
 
     //ownerId авторизованного пользователя в кач-ве заглушки, чтобы показать уведомление о дружбе на странице профиля
-    addToFriends(friendId: string, ownerId = "ZgGEuFz") {
+    addToFriends(friendId: string, ownerId: string) {
         const user1 = this.users.find((user) => user.id === ownerId);
         const user2 = this.users.find((user) => user.id === friendId);
         if (user1 && user2) {

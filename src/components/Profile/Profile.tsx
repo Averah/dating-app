@@ -28,6 +28,7 @@ const checkHasSameInterests = (myInterests: string, userInterests: string) => {
 interface ProfileProps {
     profileData: IProfileData
     isOwner: boolean
+    isMessageSent: boolean
     ownerInterests?: string
     messages: string[]
     sendMessage: (message: string) => void
@@ -37,7 +38,7 @@ interface ProfileProps {
 
 const Profile: React.FC<ProfileProps> = observer((props) => {
 
-    const { profileData, isOwner, ownerInterests, sendMessage, messages, addToFriends, storeFriends } = props;
+    const { profileData, isOwner, ownerInterests, sendMessage, messages, addToFriends, storeFriends, isMessageSent } = props;
     const { username, photos, friends, age, city, interests, gender } = profileData;
 
     const [isEditMode, setIsEditMode] = useState(false);
@@ -49,10 +50,6 @@ const Profile: React.FC<ProfileProps> = observer((props) => {
     const openModal = useCallback(() => {
         setIsEditMode(true);
     }, []);
-
-    const addFriendHandler = () => {
-        addToFriends()
-    }
 
     const hasSomeInterests = useMemo(
         () => checkHasSameInterests(ownerInterests ?? '', interests ?? ''),
@@ -67,18 +64,19 @@ const Profile: React.FC<ProfileProps> = observer((props) => {
         : (
             <div className={cls.actions}>
                 {hasSomeInterests && <Button onClick={openModal}>Написать сообщение</Button>}
-                <Button onClick={addFriendHandler}>Добавить в друзья</Button>
+                <Button onClick={addToFriends}>Добавить в друзья</Button>
             </div>
         )
 
     return (
         <div className={cls.Profile}>
+            <h2>{username}, {age}</h2>
             <div>
                 {photos.length ? <PhotoCarousel photos={photos} /> : <img className={cls.photo} src={defaultAvatar} />}
             </div>
             {actionsBlock}
             <div className={cls.description}>
-                <h2>{username}, {age}</h2>
+
                 <p>Пол: {gender} </p>
                 {isOwner ? (
                     <p>Друзья: {storeFriends.length}</p>
@@ -89,7 +87,7 @@ const Profile: React.FC<ProfileProps> = observer((props) => {
                 <p>Город: {city}</p>
                 <p>Интересы: {interests} </p>
                 <Modal isOpen={isEditMode} closeModal={closeModal}>
-                    <MessageForm sendMessage={sendMessage} />
+                    <MessageForm sendMessage={sendMessage} isMessageSent={isMessageSent} />
                 </Modal>
             </div>
         </div>

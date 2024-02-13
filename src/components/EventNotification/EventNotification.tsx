@@ -20,7 +20,7 @@ const EventNotification: React.FC<NotificationProps> = ({ isFriendRequestSent, i
         }
 
         if (isMessageReceived) {
-            showNotification('Cообщение прочитано', 'Вашей сообщение прочитано');
+            showNotification('Cообщение прочитано', 'Ваше сообщение прочитано');
         }
       }, [isFriendRequestSent, isMessageSent, lastMessage, isMessageReceived]);
     

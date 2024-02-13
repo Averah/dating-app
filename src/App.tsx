@@ -21,9 +21,9 @@ const App = observer(() => {
     <div className={cls.App}>
       <Header />
       <div className={cls.container}>
-        <div className={cls.sidebar}>
+        {/* <div className={cls.sidebar}>
           <Navbar />
-        </div>
+        </div> */}
         {authStore.isAuthorizedChecked ? (
           <div className={cls.content}>
             <Suspense fallback="">
