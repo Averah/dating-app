@@ -6,10 +6,10 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 15px;
-    max-width: 400px;
+    max-width: 600px;
     width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #0973f730;
+    border-radius: 15px;
 }
 
 .photo {
@@ -20,11 +20,6 @@
 .description {
     text-align: center;
 }
-
-.profileLoader {
-    text-align: center;
-    padding: 30px;
-   }
 
 .actions {
     display: flex;

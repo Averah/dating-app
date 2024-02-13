@@ -23,7 +23,6 @@ export const UserFilters: FC<UserFiltersProps> = observer(({ onFiltersChange }) 
     useEffect(() => {
         const searchFromUrl = searchParams.get('search') || '';
         const ageFromUrl = searchParams.get('age') || undefined;
-
         usersStore.changeSearch(searchFromUrl);
         usersStore.changeAge(ageFromUrl);
 

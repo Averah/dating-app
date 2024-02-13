@@ -10,9 +10,7 @@
     justify-content: center;
     overflow-y: auto;
     transition: all 0.3s ease;
-    z-index: 2;
-
-
+    z-index: 1090;
 }
 
 .content {

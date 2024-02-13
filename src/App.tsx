@@ -3,6 +3,7 @@ import React, { Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import cls from './App.module.scss';
 import { Header } from './components/Header/Header';
+import { Loader } from './components/Loader/Loader';
 import { Navbar } from './components/Navbar/Navbar';
 import LoginPage from './pages/LoginPage/LoginPage';
 import { ProfilePage } from './pages/ProfilePage/ProfilePage';
@@ -23,18 +24,20 @@ const App = observer(() => {
         <div className={cls.sidebar}>
           <Navbar />
         </div>
+        {authStore.isAuthorizedChecked ? (
+          <div className={cls.content}>
+            <Suspense fallback="">
+              <Routes>
+                <Route path={'/'} element={<Navigate to='/profile' />} />
+                <Route path={'/login'} element={<LoginPage />} />
+                <Route path={'/signup'} element={<SignupPage />} />
+                <Route path={'/profile/:userId?'} element={<ProfilePage />} />
+                <Route path={'/users'} element={<UsersPage />} />
+              </Routes>
+            </Suspense>
+          </div>
+        ) : <Loader />}
 
-        <div className={cls.content}>
-          <Suspense fallback="">
-            <Routes>
-              <Route path={'/'} element={<Navigate to='/profile' />} />
-              <Route path={'/login'} element={<LoginPage />} />
-              <Route path={'/signup'} element={<SignupPage />} />
-              <Route path={'/profile/:userId?'} element={<ProfilePage />} />
-              <Route path={'/users'} element={<UsersPage />} />
-            </Routes>
-          </Suspense>
-        </div>
       </div>
     </div>
   )

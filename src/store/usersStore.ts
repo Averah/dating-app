@@ -12,10 +12,14 @@ export interface IUser {
     photos: string[]
 }
 
+export interface IFriend {
+    id: string
+}
+
 export interface IProfileData {
     username: string
     photos: string[]
-    friends: string
+    friends: IFriend[]
     messages: string
     age: string
     city: string

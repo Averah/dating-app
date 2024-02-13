@@ -12,13 +12,14 @@ export const ProfilePage: FC = observer(() => {
     const isAuthorized = authStore.isAuthorized;
     const authorizedUserId = authStore.userData.id;
     const profileData = usersStore.profileData;
-    
+    const ownerInterests = authStore.userData.interests;
+
     const params = useParams();
 
     useEffect(() => {
         let userId = params.userId ? params.userId : null;
         if (!userId) {
-            userId = authorizedUserId;
+            userId = authorizedUserId ?? null;
         }
         userId && usersStore.fetchProfile(userId)
     }, [params.userId, authorizedUserId]);
@@ -33,7 +34,9 @@ export const ProfilePage: FC = observer(() => {
 
     return (
         <div className={cls.ProfilePage} >
-            <Profile profileData={profileData} isOwner={!params.userId} />
+            {profileData ? <Profile profileData={profileData} isOwner={!params.userId} ownerInterests={ownerInterests} /> : <Loader className={cls.profileLoader} />
+            }
+            {/* <Profile profileData={profileData} isOwner={!params.userId} ownerInterests={ownerInterests} /> */}
         </div>
     );
 });

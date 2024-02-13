@@ -6,15 +6,17 @@ export interface IUserData {
     password?: string
     username?: string
     id?: string
+    interests?: string
 }
 class AuthStore {
-    userData = {
+    userData:IUserData  = {
         email: '',
         password: '',
         username: '',
         id: ''
     }
     isAuthorized = false;
+    isAuthorizedChecked = false
     error = '';
     isLoading = false;
     isSignedUp = false;
@@ -84,6 +86,7 @@ class AuthStore {
             this.isAuthorized = true;
             this.userData = JSON.parse(isAuthorized)
         }
+        this.isAuthorizedChecked = true
     }
 }
 

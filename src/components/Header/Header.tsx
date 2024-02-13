@@ -14,7 +14,6 @@ export const Header: React.FC = observer(() => {
     return (
         <div className={cls.Header}>
             <div className={cls.content}>
-                <div>Dating App</div>
                 {authStore.isAuthorized
                     ?
                     <Button type='text' onClick={logOut} className={cls.logOutBtn}>Выйти </Button>
