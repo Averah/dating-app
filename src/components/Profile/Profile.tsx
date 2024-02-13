@@ -1,24 +1,43 @@
-import React from 'react';
-import { IProfileData } from '../../store/authStore';
-import { Button, Image } from 'antd';
+import { Button } from 'antd';
+import React, { useCallback, useState } from 'react';
 import defaultAvatar from '../../assets/defaultAvatar.png';
+import { IProfileData } from '../../store/usersStore';
+import { Loader } from '../Loader/Loader';
+import MessageForm from '../MessageForm/MessageForm';
+import PhotoCarousel from '../PhotoCarousel/PhotoCarousel';
 import cls from './Profile.module.scss';
+import { Modal } from '../Modal/Modal';
 
 interface ProfileProps {
-    profileData: IProfileData;
+    profileData: IProfileData | null
     isOwner: boolean
 }
 const Profile: React.FC<ProfileProps> = ({ profileData, isOwner }) => {
-    const { username, avatar, friends, messages, age, city, interests, gender } = profileData;
+    const [isEditMode, setIsEditMode] = useState(false);
+
+    const closeModal = useCallback(() => {
+        setIsEditMode(false);
+      }, []);
+
+      const openModal = useCallback(() => {
+        setIsEditMode(true);
+      }, []);
+
+
+    if (!profileData) {
+        return <Loader className={cls.profileLoader} />
+    }
+
+    const { username, photos, friends, messages, age, city, interests, gender } = profileData;
 
     const actionsBlock = isOwner ? (
-        <div>
+        <div className={cls.actions}>
             <Button>Открыть новые сообщения</Button>
         </div>
     )
         : (
-            <div>
-                <Button>Написать сообщение</Button>
+            <div className={cls.actions}>
+                <Button onClick={openModal}>Написать сообщение</Button>
                 <Button>Добавить в друзья</Button>
             </div>
         )
@@ -26,14 +45,7 @@ const Profile: React.FC<ProfileProps> = ({ profileData, isOwner }) => {
     return (
         <div className={cls.Profile}>
             <div>
-                {avatar ? (
-                    <Image
-                        src={avatar}
-                        className={cls.avatar}
-                        width={220}
-                    />
-                )
-                    : <img className={cls.avatar} src={defaultAvatar} />}
+                {photos.length ? <PhotoCarousel photos={photos} /> : <img className={cls.photo} src={defaultAvatar} />}
             </div>
             {actionsBlock}
             <div className={cls.description}>
@@ -43,8 +55,10 @@ const Profile: React.FC<ProfileProps> = ({ profileData, isOwner }) => {
                 <p>Сообщения: {messages}</p>
                 <p>Город: {city}</p>
                 <p>Интересы: {interests} </p>
+                <Modal isOpen={isEditMode} closeModal={closeModal}>
+                    <MessageForm />
+                </Modal>
             </div>
-
         </div>
     )
 };

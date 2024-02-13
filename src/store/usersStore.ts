@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { makeAutoObservable, flow } from 'mobx';
+import { addQueryParams } from '../lib/helpers/addQueryParams';
 
 export interface IUser {
     id: string
@@ -8,24 +9,27 @@ export interface IUser {
     city: string
     interests: string
     gender: string
-    avatar: string
+    photos: string[]
 }
+
+export interface IProfileData {
+    username: string
+    photos: string[]
+    friends: string
+    messages: string
+    age: string
+    city: string
+    interests: string
+    gender: string
+}
+
 class UsersStore {
 
-    isFetching = false
-    users = []
-    profileData = {
-        username: '',
-        avatar: '',
-        friends: '',
-        messages: '',
-        age: '',
-        city: '',
-        interests: '',
-        gender: '',
-    }
-
-    
+    isFetching: boolean = false
+    users: IUser[] = []
+    profileData: IProfileData | null = null
+    age: string | undefined = undefined 
+    search: string | undefined = undefined 
 
     constructor() {
         makeAutoObservable(this)
@@ -34,16 +38,24 @@ class UsersStore {
     fetchProfile = flow(function* (this: UsersStore, userId) {
         const response = yield axios.get(`http://localhost:8000/users/${userId}`);
         this.profileData = response.data
-        console.log(this.profileData);
-        
     })
 
     fetchUsers = flow(function* (this: UsersStore) {
 
         try {
             this.isFetching = true
-            const response = yield axios.get('http://localhost:8000/664/users')
+            const response = yield axios.get('http://localhost:8000/664/users', {
+                params: {
+                    q: this.search || undefined,
+                    age: this.age || undefined,
+                },
+            })
             this.users = response.data
+
+            addQueryParams({
+                search: this.search,
+                age: this.age ?? '',
+            })
         } catch (error) {
             console.log(error);
 
@@ -53,20 +65,19 @@ class UsersStore {
     })
 
     clearProfileData() {
-        this.profileData = {
-            username: '',
-            avatar: '',
-            friends: '',
-            messages: '',
-            age: '',
-            city: '',
-            interests: '',
-            gender: '',
-        }
+        this.profileData = null
     }
 
     clearUsers() {
         this.users = []
+    }
+
+    changeSearch(search?: string) {
+        this.search = search;
+    }
+
+    changeAge(age?: string) {
+        this.age = age;
     }
 
 }

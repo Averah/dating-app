@@ -10,7 +10,11 @@
       "interests": "Котики, кодинг, велосипед",
       "gender": "Мужской",
       "friends": "6",
-      "avatar": "https://sun9-29.userapi.com/impf/_sOYLHWmZPnIFW9r_SnSrKC3Xh7vOr8cUqYcDQ/prkt4K48yfI.jpg?size=520x0&quality=95&sign=3f2986889a576d27ae275cec92e1502a",
+      "photos": [
+          "https://sun9-29.userapi.com/impf/_sOYLHWmZPnIFW9r_SnSrKC3Xh7vOr8cUqYcDQ/prkt4K48yfI.jpg?size=520x0&quality=95&sign=3f2986889a576d27ae275cec92e1502a",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM6-O_X_me-kIlck304BdeP1ZacMGOinDoxwMJCgGwYp3oIRp7WeAatzPOls5thq8Ecw0&usqp=CAU",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyFqOocLK0aCiNIxsLXJRI-m8k8zJmdLmPqQ&usqp=CAU"
+        ],
       "messages": "4",
 
       "newMessages": [
@@ -32,7 +36,10 @@
       "interests": "Велосипед, гонки",
       "gender": "Мужской",
       "friends": "3",
-      "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp0ivvz6TY1UMD4gW6-q4HmvU5Ur-rzFALFA&usqp=CAU",
+      "photos": [
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp0ivvz6TY1UMD4gW6-q4HmvU5Ur-rzFALFA&usqp=CAU",
+          "https://proverili.ru/uploads/media/22019/programmist3.jpg"
+    ],
       "messages": "5"
     },
     {
@@ -45,7 +52,7 @@
       "interests": "Плавание",
       "gender": "Женский",
       "friends": "5",
-      "avatar": "https://ncrdo.ru/upload/medialibrary/876/876bd8b93b69f18466ca518c39921209.jpg",
+      "photos": ["https://ncrdo.ru/upload/medialibrary/876/876bd8b93b69f18466ca518c39921209.jpg"],
       "messages": "4"
     },
     {
@@ -58,7 +65,7 @@
       "interests": "Плавание, вязание",
       "gender": "Женский",
       "friends": "0",
-      "avatar": "",
+      "photos": [],
       "messages": "0"
     }
   ],

@@ -9,14 +9,15 @@ interface IUserCardProps {
     user: IUser
 }
 const UserCard: React.FC<IUserCardProps> = ({ user }) => {
-    const { username, age, city, interests, gender, avatar } = user
-
+    const { username, age, city, interests, gender, photos } = user
     const title = age ? `${username}, ${age}` : username
+
+
     return (
         <Card
             hoverable
             className={cls.Card}
-            cover={<img alt="avatar" src={avatar ? avatar:  defaultAvatar} style={{ maxHeight: 120}} />}
+            cover={<img alt="avatar" src={photos[0] ? photos[0]:  defaultAvatar} style={{ maxHeight: 120}} />}
         >
             <Meta title={title} />
             <p>{city}</p>

@@ -32,7 +32,7 @@ export const SignupForm: React.FC<SignupFormProps> = memo(({ signUp, isLoading, 
 
     useEffect(() => {
         return () => clearErrors();
-    }, [])
+    }, [clearErrors])
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={cls.LoginForm}>

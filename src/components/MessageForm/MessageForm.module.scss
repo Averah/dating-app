@@ -1,0 +1,27 @@
+.MessageForm {
+    width: 350px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.textarea {
+    width: 350px;
+    resize: none;
+    height: 150px;
+    border: 1px solid rgba(136, 136, 136, 0.46);
+    border-radius: 5px;
+    padding: 10px;
+    transition: border 0.4s;
+}
+
+textarea:focus {
+    border: 1px solid rgba(10, 109, 223, 0.699);
+    outline: none;
+}
+
+.messageBtn {
+    align-self: flex-end;
+}

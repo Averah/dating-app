@@ -1,17 +1,20 @@
-import { Spin } from 'antd';
-import React, { FC, memo } from 'react';
+import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { IUser } from '../../store/usersStore';
 import UserCard from './UserCard/UserCard';
 import cls from './Users.module.scss';
+import { Loader } from '../Loader/Loader';
 
 interface IUsersProps {
     users: Array<IUser>
+    isFetching: boolean
 }
 
-const Users: React.FC<IUsersProps> = memo(({ users }) => {
+const Users: React.FC<IUsersProps> = memo(({ users, isFetching }) => {
 
-    if (users.length === 0) {
+    if (isFetching) {
+        return <Loader className={cls.usersLoader} />
+    } else if (users.length === 0) {
         return <div className={cls.emptyUsersList}> No matches found</div>
     }
 

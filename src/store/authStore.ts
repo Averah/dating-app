@@ -4,21 +4,9 @@ import axios, { AxiosError } from 'axios';
 export interface IUserData {
     email: string
     password?: string
-    username?: string,
+    username?: string
     id?: string
 }
-
-export interface IProfileData {
-    username: string,
-    avatar: string,
-    friends: string,
-    messages: string,
-    age: string,
-    city: string,
-    interests: string,
-    gender: string,
-}
-
 class AuthStore {
     userData = {
         email: '',
@@ -43,13 +31,12 @@ class AuthStore {
         try {
             this.isLoading = true
             const response = yield axios.post('http://localhost:8000/login', loginData)
-            console.log(response);
-
             localStorage.setItem('token', (JSON.stringify(response.data.user)));
+            
             this.isAuthorized = true;
             this.userData = response.data.user
-            console.log(this.userData);
             this.clearError()
+            return response.data;
 
         } catch (error) {
             const err = error as AxiosError
@@ -76,7 +63,6 @@ class AuthStore {
         try {
             this.isLoading = true;
             const response = yield axios.post('http://localhost:8000/signup', signUpData)
-            console.log(response);
             if (response.status === 201) {
                 this.isSignedUp = true;
                 this.clearError();
@@ -93,6 +79,7 @@ class AuthStore {
 
     initAuthData() {
         const isAuthorized = localStorage.getItem('token');
+        
         if (isAuthorized) {
             this.isAuthorized = true;
             this.userData = JSON.parse(isAuthorized)

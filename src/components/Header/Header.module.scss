@@ -8,13 +8,16 @@
     gap: 15px;
 }
 
-.links {
+.content {
     max-width: 1076px;
     width: 100%;
     padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.links a {
+.content a {
     text-decoration: none;
     font-size: 16px;
     font-weight: 600;
@@ -22,11 +25,11 @@
     color: rgb(85, 84, 84);
 }
 
-.links a:hover {
+.content a:hover {
     color:rgb(0, 0, 0);
 }
 
-.links a.active {
+.content a.active {
     color: rgb(0, 0, 0);
 }
 

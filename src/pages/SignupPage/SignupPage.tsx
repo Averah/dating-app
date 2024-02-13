@@ -4,8 +4,6 @@ import { Navigate } from 'react-router-dom';
 import { SignupForm } from '../../components/SignUpForm/SignUpForm';
 import authStore, { IUserData } from '../../store/authStore';
 
-
-
 export const SignupPage: FC = observer(() => {
 
     const onSignUpHandler = useCallback((data: IUserData) => {
@@ -26,7 +24,6 @@ export const SignupPage: FC = observer(() => {
     if (isAuthorized) {
         return <Navigate to='/profile' />
     }
-
 
     return (
         <div>

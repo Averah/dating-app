@@ -24,7 +24,6 @@ export const LoginForm: React.FC<FormProps> = memo(({ authorize, isLoading, clea
         register,
         handleSubmit,
         formState: { errors },
-        reset,
     } = useForm<IUserData>({ mode: 'onBlur' });
 
     const onSubmit = (data: IUserData) => {
@@ -33,7 +32,7 @@ export const LoginForm: React.FC<FormProps> = memo(({ authorize, isLoading, clea
 
     useEffect(() => {
         return () => clearErrors();
-    }, [])
+    }, [clearErrors])
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={cls.LoginForm}>
