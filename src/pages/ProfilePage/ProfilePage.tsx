@@ -1,20 +1,42 @@
 import { observer } from 'mobx-react-lite';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
+import EventNotification from '../../components/EventNotification/EventNotification';
 import { Loader } from '../../components/Loader/Loader';
 import Profile from '../../components/Profile/Profile';
 import authStore from '../../store/authStore';
 import usersStore from '../../store/usersStore';
 import cls from './ProfilePage.module.scss';
 
-
 export const ProfilePage: FC = observer(() => {
     const isAuthorized = authStore.isAuthorized;
     const authorizedUserId = authStore.userData.id;
     const profileData = usersStore.profileData;
     const ownerInterests = authStore.userData.interests;
+    const isMessageSent = usersStore.isMessageSent;
+    const messages = usersStore.messages;
+    const storeFriends = usersStore.friends
+
+    const lastMessage = messages[messages.length - 1]
 
     const params = useParams();
+
+    const userId = params.userId
+
+    const addToFriends = useCallback(() => {
+        userId && usersStore.addToFriends(userId);
+
+    }, [userId]);
+
+
+    const sendMessage = useCallback((message: string) => {
+        usersStore.sendMessage(message)
+    }, [])
+
+    const onCloseNotification = useCallback(() => {
+        usersStore.readMessage()
+    }, [])
+
 
     useEffect(() => {
         let userId = params.userId ? params.userId : null;
@@ -34,9 +56,29 @@ export const ProfilePage: FC = observer(() => {
 
     return (
         <div className={cls.ProfilePage} >
-            {profileData ? <Profile profileData={profileData} isOwner={!params.userId} ownerInterests={ownerInterests} /> : <Loader className={cls.profileLoader} />
+            {profileData ? (
+                <Profile profileData={profileData}
+                    isOwner={!params.userId}
+                    ownerInterests={ownerInterests}
+                    sendMessage={sendMessage}
+                    messages={messages}
+                    addToFriends={addToFriends}
+                    storeFriends={storeFriends}
+
+                />
+            ) : (
+                <Loader className={cls.profileLoader} />
+            )
             }
-            {/* <Profile profileData={profileData} isOwner={!params.userId} ownerInterests={ownerInterests} /> */}
+
+            <EventNotification 
+            isFriendRequestSent={usersStore.isFriendRequestSent} 
+            isMessageSent={isMessageSent} 
+            lastMessage={lastMessage} 
+            onClose={onCloseNotification} 
+            isMessageReceived={usersStore.isMessageReceived}/>
+
+
         </div>
     );
 });

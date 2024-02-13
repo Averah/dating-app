@@ -1,13 +1,17 @@
-import { Button } from "antd";
 import React from "react";
 import { useForm } from "react-hook-form";
+import Button from "../../ui/Button/Button";
 import cls from './MessageForm.module.scss'
 
-type UserSubmitForm = {
-    dialogsMessage: string
+interface MessageFormProps {
+    sendMessage: (message:string) => void
 }
 
-const MessageForm: React.FC = () => {
+type UserSubmitForm = {
+    message: string
+}
+
+const MessageForm: React.FC<MessageFormProps> = ({sendMessage}) => {
     const {
         reset,
         register,
@@ -16,8 +20,8 @@ const MessageForm: React.FC = () => {
     } = useForm<UserSubmitForm>({ mode: "onChange" });
 
     const onSubmit = (data: UserSubmitForm) => {
-        console.log(data);
-
+        console.log(data.message);
+        sendMessage(data.message)
         reset();
     };
 
@@ -27,13 +31,13 @@ const MessageForm: React.FC = () => {
                 <textarea
                 className={cls.textarea}
                     placeholder="Введите сообщение..."
-                    {...register("dialogsMessage", {
+                    {...register("message", {
                         required: "You cannot send an empty message",
                     })}
                 />
             </div>
             <div>
-                <Button className={cls.messageBtn}>Отправить</Button>
+                <Button className={cls.messageBtn} type='submit'>Отправить</Button>
             </div>
         </form>
     );

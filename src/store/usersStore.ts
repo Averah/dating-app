@@ -10,6 +10,7 @@ export interface IUser {
     interests: string
     gender: string
     photos: string[]
+    // friends: IFriend[]
 }
 
 export interface IFriend {
@@ -20,7 +21,6 @@ export interface IProfileData {
     username: string
     photos: string[]
     friends: IFriend[]
-    messages: string
     age: string
     city: string
     interests: string
@@ -28,12 +28,18 @@ export interface IProfileData {
 }
 
 class UsersStore {
-
     isFetching: boolean = false
     users: IUser[] = []
     profileData: IProfileData | null = null
-    age: string | undefined = undefined 
-    search: string | undefined = undefined 
+    age: string | undefined = undefined
+    search: string | undefined = undefined
+    messages: string[] = []
+    isMessageSent: boolean = false
+    isMessageReceived: boolean = false
+    messageError: string = ''
+    friends: IFriend[] = []
+    isFriendRequestSent: boolean = false
+    friendshipError: string = ''
 
     constructor() {
         makeAutoObservable(this)
@@ -45,7 +51,6 @@ class UsersStore {
     })
 
     fetchUsers = flow(function* (this: UsersStore) {
-
         try {
             this.isFetching = true
             const response = yield axios.get('http://localhost:8000/664/users', {
@@ -55,6 +60,7 @@ class UsersStore {
                 },
             })
             this.users = response.data
+            console.log(this.users);
 
             addQueryParams({
                 search: this.search,
@@ -72,10 +78,6 @@ class UsersStore {
         this.profileData = null
     }
 
-    clearUsers() {
-        this.users = []
-    }
-
     changeSearch(search?: string) {
         this.search = search;
     }
@@ -83,6 +85,42 @@ class UsersStore {
     changeAge(age?: string) {
         this.age = age;
     }
+
+    //id авторизованного пользователя в кач-ве заглушки, чтобы показать уведомление о сообщении на странице профиля
+    sendMessage(message: string, id = "ZgGEuFz") {
+        const userIndex = this.users.findIndex((user) => user.id === id);
+
+        if (userIndex !== -1) {
+            this.isMessageSent = false
+            //также добавляю сообщение в массив в сторе т.к. сервер не поддерживает изменение этих данных
+            this.messages.push(message)
+            this.isMessageSent = true
+        } else {
+            this.messageError = 'Ошибка! Сообщение не отправлено'
+        }
+    }
+
+    //ownerId авторизованного пользователя в кач-ве заглушки, чтобы показать уведомление о дружбе на странице профиля
+    addToFriends(friendId: string, ownerId = "ZgGEuFz") {
+        const user1 = this.users.find((user) => user.id === ownerId);
+        const user2 = this.users.find((user) => user.id === friendId);
+        if (user1 && user2) {
+            this.isFriendRequestSent = false
+            this.friends.push(user2);
+            this.isFriendRequestSent = true
+        }
+        else {
+            this.friendshipError = 'Ошибка!'
+        }
+    }
+
+    readMessage() {
+        this.isMessageReceived = true
+        this.isFriendRequestSent = false
+        this.isMessageSent = false
+    }
+
+    
 
 }
 
