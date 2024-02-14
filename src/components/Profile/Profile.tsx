@@ -86,12 +86,11 @@ const Profile: React.FC<ProfileProps> = observer((props) => {
     return (
         <div className={cls.Profile}>
             <h2>{username}, {age}</h2>
-            <div>
+            <div className={cls.photoCarousel}>
                 <PhotoCarousel photos={photos} />
             </div>
             {actionsBlock}
             <div className={cls.description}>
-
                 <p>Пол: {gender} </p>
                 {isOwner ? (
                     <p>Друзья: {storeFriends.length}</p>

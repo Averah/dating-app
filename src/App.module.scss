@@ -20,6 +20,9 @@
   border: 2px solid #a3b8f12e;
   border-top: none;
   border-bottom: none;
+  -webkit-box-shadow: 0px 4px 16px -3px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 4px 16px -3px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 4px 16px -3px rgba(34, 60, 80, 0.2);
 }
 
 .sidebar {

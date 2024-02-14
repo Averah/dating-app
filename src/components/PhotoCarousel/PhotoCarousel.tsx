@@ -19,11 +19,13 @@ const PhotoCarousel: React.FC<IPhotoCarouselProps> = memo(({ photos }) => {
     }
 
     return (
+        <>
         <Carousel className={cls.PhotoCarousel} >
             {photos.map((photo, index) => (
                     <img src={photo} className={cls.photo} key={index} alt={`Photo ${index + 1}`} />
             ))}
         </Carousel>
+</>
     );
 });
 

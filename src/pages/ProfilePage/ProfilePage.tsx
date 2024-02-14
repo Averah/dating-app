@@ -23,7 +23,7 @@ export const ProfilePage: FC = observer(() => {
     const addToFriends = useCallback(() => {
         (userId  && authorizedUserId) && usersStore.addToFriends(userId, authorizedUserId);
 
-    }, [userId]);
+    }, [userId, authorizedUserId]);
 
 
     const sendMessage = useCallback((message: string) => {
@@ -35,6 +35,8 @@ export const ProfilePage: FC = observer(() => {
         if (!userId) {
             userId = authorizedUserId ?? null;
         }
+
+        
         userId && usersStore.fetchProfile(userId)
         usersStore.fetchUsers(true)
     }, [params.userId, authorizedUserId]);
