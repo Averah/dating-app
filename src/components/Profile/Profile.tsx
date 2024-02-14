@@ -4,7 +4,6 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import usersStore, { IFriend, IProfileData } from '../../store/usersStore';
 import MessageForm from '../MessageForm/MessageForm';
-import Messages from '../Messages/Messages';
 import { Modal } from '../Modal/Modal';
 import PhotoCarousel from '../PhotoCarousel/PhotoCarousel';
 import cls from './Profile.module.scss';

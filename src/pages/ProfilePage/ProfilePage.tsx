@@ -9,13 +9,8 @@ import cls from './ProfilePage.module.scss';
 
 export const ProfilePage: FC = observer(() => {
 
-    const isAuthorized = authStore.isAuthorized;
-    const authorizedUserId = authStore.userData.id;
-    const profileData = usersStore.profileData;
-    const ownerInterests = authStore.userData.interests;
-    const isMessageSent = usersStore.isMessageSent;
-    const messages = usersStore.messages;
-    const storeFriends = usersStore.friends
+    const { isAuthorized, userData: { id: authorizedUserId, interests: ownerInterests } } = authStore;
+    const { profileData, isMessageSent, messages, friends: storeFriends } = usersStore;
 
     const params = useParams();
 
@@ -29,7 +24,7 @@ export const ProfilePage: FC = observer(() => {
 
     const sendMessage = useCallback((message: string) => {
         authorizedUserId && usersStore.sendMessage(message, authorizedUserId);
-    }, []);
+    }, [authorizedUserId]);
 
     useEffect(() => {
         let userId = params.userId ? params.userId : null;

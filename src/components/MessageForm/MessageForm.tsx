@@ -17,7 +17,6 @@ const MessageForm: React.FC<MessageFormProps> = memo(({ sendMessage, isMessageSe
         reset,
         register,
         handleSubmit,
-        formState: { errors },
     } = useForm<IUserSubmitForm>({ mode: "onChange" });
 
     const onSubmit = (data: IUserSubmitForm) => {
