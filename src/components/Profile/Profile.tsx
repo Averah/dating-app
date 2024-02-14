@@ -1,9 +1,10 @@
 import { Button } from 'antd';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useMemo, useState } from 'react';
-import defaultAvatar from '../../assets/defaultAvatar.png';
-import { IFriend, IProfileData } from '../../store/usersStore';
+import { useNavigate } from 'react-router-dom';
+import usersStore, { IFriend, IProfileData } from '../../store/usersStore';
 import MessageForm from '../MessageForm/MessageForm';
+import Messages from '../Messages/Messages';
 import { Modal } from '../Modal/Modal';
 import PhotoCarousel from '../PhotoCarousel/PhotoCarousel';
 import cls from './Profile.module.scss';
@@ -34,22 +35,32 @@ interface ProfileProps {
     sendMessage: (message: string) => void
     addToFriends: () => void
     storeFriends: IFriend[]
+    userId: string
 }
 
 const Profile: React.FC<ProfileProps> = observer((props) => {
 
-    const { profileData, isOwner, ownerInterests, sendMessage, messages, addToFriends, storeFriends, isMessageSent } = props;
+    const { profileData, isOwner, ownerInterests, sendMessage, messages, addToFriends, storeFriends, isMessageSent, userId } = props;
     const { username, photos, friends, age, city, interests, gender } = profileData;
 
-    const [isEditMode, setIsEditMode] = useState(false);
+    const isOwnerFriend = usersStore.friends?.find(user => user.id === userId)
+
+    const [isMessageFormOpen, setIsMessageFormOpen] = useState(false);
+
 
     const closeModal = useCallback(() => {
-        setIsEditMode(false);
+        setIsMessageFormOpen(false);
     }, []);
 
     const openModal = useCallback(() => {
-        setIsEditMode(true);
+        setIsMessageFormOpen(true);
     }, []);
+
+    const navigate = useNavigate();
+
+    const navigateToMessages = () => {
+        navigate('/messages');
+    };
 
     const hasSomeInterests = useMemo(
         () => checkHasSameInterests(ownerInterests ?? '', interests ?? ''),
@@ -58,13 +69,17 @@ const Profile: React.FC<ProfileProps> = observer((props) => {
 
     const actionsBlock = isOwner ? (
         <div className={cls.actions}>
-            <Button>Открыть сообщения</Button>
+            <Button className={cls.actionBtn} onClick={navigateToMessages}>Открыть сообщения</Button>
         </div>
     )
         : (
             <div className={cls.actions}>
-                {hasSomeInterests && <Button onClick={openModal}>Написать сообщение</Button>}
-                <Button onClick={addToFriends}>Добавить в друзья</Button>
+                {hasSomeInterests && <Button onClick={openModal} className={cls.actionBtn}>Написать сообщение</Button>}
+                {!isOwnerFriend ? (
+                    <Button onClick={addToFriends} className={cls.actionBtn}>Добавить в друзья</Button>
+                ) : (
+                    <div className={cls.friendRequestInfo}>Запрос в друзья отправлен</div>
+                )}
             </div>
         )
 
@@ -72,7 +87,7 @@ const Profile: React.FC<ProfileProps> = observer((props) => {
         <div className={cls.Profile}>
             <h2>{username}, {age}</h2>
             <div>
-                {photos.length ? <PhotoCarousel photos={photos} /> : <img className={cls.photo} src={defaultAvatar} />}
+                <PhotoCarousel photos={photos} />
             </div>
             {actionsBlock}
             <div className={cls.description}>
@@ -86,7 +101,7 @@ const Profile: React.FC<ProfileProps> = observer((props) => {
                 {isOwner && <p>Сообщения: {messages.length}</p>}
                 <p>Город: {city}</p>
                 <p>Интересы: {interests} </p>
-                <Modal isOpen={isEditMode} closeModal={closeModal}>
+                <Modal isOpen={isMessageFormOpen} closeModal={closeModal}>
                     <MessageForm sendMessage={sendMessage} isMessageSent={isMessageSent} />
                 </Modal>
             </div>

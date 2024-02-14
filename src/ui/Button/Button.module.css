@@ -1,8 +1,19 @@
 .Button {
     padding: 5px;
-    border: solid 1px #cccccc ;
-    border-radius: 5px;
+    border: solid 1px #d9d9d9;
+    border-radius: 6px;
     outline: none;
     cursor: pointer;
-    background-color: rgb(228, 228, 228);
+    color: #3e5a85;
+    background-color: transparent;
+}
+
+.actionBtn {
+    color: #3e5a85;
+    background-color: transparent;
+}
+
+.Button:hover {
+    border-color: #3f90db;
+    color: #398efb;
 }

@@ -1,8 +1,9 @@
 .ProfilePage {
     width: 100%;
+    height: fit-content;
+    max-height: 600px;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 

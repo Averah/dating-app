@@ -11,9 +11,10 @@ interface FormProps {
     authorize: (data: IUserData) => void;
     clearErrors: () => void;
     isLoading: boolean;
+    error: string;
 }
 
-export const LoginForm: React.FC<FormProps> = memo(({ authorize, isLoading, clearErrors }) => {
+export const LoginForm: React.FC<FormProps> = memo(({ authorize, isLoading, clearErrors, error }) => {
     const [passwordShown, setPasswordShown] = useState(false);
 
     const togglePasswordVisibility = () => {
@@ -68,6 +69,7 @@ export const LoginForm: React.FC<FormProps> = memo(({ authorize, isLoading, clea
                     </div>
                 </div>
             </div>
+            <div className={cls.serverError}>{error && error}</div>
             <NavLink to='/signup' className={cls.signUpLink}>Зарегистрироваться</NavLink>
             <Button type="submit" className={cls.submitBtn} disabled={isLoading}>
                 {isLoading ? 'Выполняется вход...' : 'Войти'}

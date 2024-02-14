@@ -3,7 +3,7 @@ import React, { FC, useCallback } from 'react';
 import { Navigate } from 'react-router-dom';
 import { LoginForm } from '../../components/LoginForm/LoginForm';
 import authStore, { IUserData } from '../../store/authStore';
-
+import cls from './LoginPage.module.scss'
 
 export const LoginPage: FC = observer(() => {
 
@@ -24,11 +24,9 @@ export const LoginPage: FC = observer(() => {
     }
 
     return (
-        <div>
-            
-            <div>Авторизация</div>
-            <LoginForm authorize={onAuthorizeHandler} isLoading={isLoading} clearErrors={onClearErrors} />
-            {error && <div>{error}</div>}
+        <div className={cls.LoginPage}>
+            <div className={cls.title}>Авторизация</div>
+            <LoginForm authorize={onAuthorizeHandler} isLoading={isLoading} clearErrors={onClearErrors} error={error} />
         </div>
     );
 });

@@ -17,7 +17,7 @@ const UserCard: React.FC<IUserCardProps> = ({ user }) => {
         <Card
             hoverable
             className={cls.Card}
-            cover={<img alt="avatar" src={photos[0] ? photos[0]:  defaultAvatar} style={{ maxHeight: 120}} />}
+            cover={<img alt="avatar" src={photos[0] ? photos[0]:  defaultAvatar} style={{ maxHeight: 120, objectFit: "cover"}} />}
         >
             <Meta title={title} />
             <p>{city}</p>

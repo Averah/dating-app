@@ -1,6 +1,6 @@
 .Users {
     display: flex;
-    gap: 15px;
+    gap: 25px;
     flex-wrap: wrap;
 }
 
@@ -11,4 +11,11 @@
 .usersLoader {
     text-align: center;
     padding: 30px;
+}
+
+
+@media (max-width: 500px) {
+    .Users {
+        justify-content: center;
+    }
 }

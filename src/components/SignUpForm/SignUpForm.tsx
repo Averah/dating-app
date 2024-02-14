@@ -10,10 +10,11 @@ import { NavLink } from 'react-router-dom';
 interface SignupFormProps {
     signUp: (data: IUserData) => void;
     clearErrors: () => void;
-    isLoading: boolean
+    isLoading: boolean;
+    error?: string;
 }
 
-export const SignupForm: React.FC<SignupFormProps> = memo(({ signUp, isLoading, clearErrors }) => {
+export const SignupForm: React.FC<SignupFormProps> = memo(({ signUp, isLoading, clearErrors, error }) => {
     const [passwordShown, setPasswordShown] = useState(false);
 
     const togglePasswordVisibility = () => {
@@ -24,10 +25,12 @@ export const SignupForm: React.FC<SignupFormProps> = memo(({ signUp, isLoading, 
         register,
         handleSubmit,
         formState: { errors },
+        reset,
     } = useForm<IUserData>({ mode: 'onBlur' });
 
     const onSubmit = (data: IUserData) => {
         signUp(data);
+        reset()
     };
 
     useEffect(() => {
@@ -35,7 +38,7 @@ export const SignupForm: React.FC<SignupFormProps> = memo(({ signUp, isLoading, 
     }, [clearErrors])
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className={cls.LoginForm}>
+        <form onSubmit={handleSubmit(onSubmit)} className={cls.SignupForm}>
             <div className={cls.formInputs}>
                 <div>
                     <Input
@@ -79,9 +82,9 @@ export const SignupForm: React.FC<SignupFormProps> = memo(({ signUp, isLoading, 
                         {errors?.password && (`${errors.password?.message}` || 'Ошибка')}
                     </div>
                 </div>
-
-                <NavLink to='/login' className={cls.signUpLink}>Войти</NavLink>
             </div>
+            <div className={cls.serverError}>{error && error}</div>
+            <NavLink to='/login' className={cls.loginLink}>Войти</NavLink>
             <Button type="submit" className={cls.submitBtn} disabled={isLoading}>
                 {isLoading ? 'Регистрация...' : 'Зарегистрироваться'}
             </Button>

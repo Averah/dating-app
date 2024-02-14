@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { FC, useCallback, useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import EventNotification from '../../components/EventNotification/EventNotification';
 import { Loader } from '../../components/Loader/Loader';
 import Profile from '../../components/Profile/Profile';
 import authStore from '../../store/authStore';
@@ -17,11 +16,9 @@ export const ProfilePage: FC = observer(() => {
     const messages = usersStore.messages;
     const storeFriends = usersStore.friends
 
-    const lastMessage = messages[messages.length - 1]
-
     const params = useParams();
 
-    const userId = params.userId
+    const userId = params.userId as string
 
     const addToFriends = useCallback(() => {
         (userId  && authorizedUserId) && usersStore.addToFriends(userId, authorizedUserId);
@@ -33,17 +30,13 @@ export const ProfilePage: FC = observer(() => {
         usersStore.sendMessage(message)
     }, [])
 
-    const onCloseNotification = useCallback(() => {
-        usersStore.readMessage()
-    }, [])
-
-
     useEffect(() => {
         let userId = params.userId ? params.userId : null;
         if (!userId) {
             userId = authorizedUserId ?? null;
         }
         userId && usersStore.fetchProfile(userId)
+        usersStore.fetchUsers(true)
     }, [params.userId, authorizedUserId]);
 
     useEffect(() => {
@@ -65,21 +58,12 @@ export const ProfilePage: FC = observer(() => {
                     addToFriends={addToFriends}
                     storeFriends={storeFriends}
                     isMessageSent={isMessageSent}
-
+                    userId={userId}
                 />
             ) : (
                 <Loader className={cls.profileLoader} />
             )
             }
-
-            <EventNotification 
-            isFriendRequestSent={usersStore.isFriendRequestSent} 
-            isMessageSent={isMessageSent} 
-            lastMessage={lastMessage} 
-            onClose={onCloseNotification} 
-            isMessageReceived={usersStore.isMessageReceived}/>
-
-
         </div>
     );
 });

@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import React, { FC, useCallback } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
 import { SignupForm } from '../../components/SignUpForm/SignUpForm';
 import authStore, { IUserData } from '../../store/authStore';
+import cls from './SignupPage.module.scss';
 
 export const SignupPage: FC = observer(() => {
 
@@ -15,7 +16,6 @@ export const SignupPage: FC = observer(() => {
     }, [])
 
 
-
     const isLoading = authStore.isLoading;
     const error = authStore.error;
     const isAuthorized = authStore.isAuthorized;
@@ -26,11 +26,17 @@ export const SignupPage: FC = observer(() => {
     }
 
     return (
-        <div>
-            <div>Регистрация</div>
-            <SignupForm signUp={onSignUpHandler} isLoading={isLoading} clearErrors={onClearErrors} />
-            {error && <div>{error}</div>}
-            {isSignedUp && <div> Регистрация прошла успешно. </div>}
+        <div className={cls.SignupPage}>
+            <div className={cls.title}>Регистрация</div>
+            {isSignedUp && (
+                <div className={cls.signupSucces}>
+                    Регистрация прошла успешно.
+                    <NavLink to='/login' className={cls.signUpLink}>Войти</NavLink>
+
+                </div>
+            )}
+            <SignupForm signUp={onSignUpHandler} isLoading={isLoading} clearErrors={onClearErrors} error={error} />
+
         </div>
     );
 });

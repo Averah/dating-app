@@ -10,7 +10,7 @@
 }
 
 .customInput:focus {
-  border-bottom: 1px solid rgba(83, 83, 83, 0.46);
+  border-bottom: 1px solid #3e5a85;;
 }
 
 input:-webkit-autofill:hover,

@@ -2,6 +2,8 @@ import axios from 'axios';
 import { makeAutoObservable, flow } from 'mobx';
 import { addQueryParams } from '../lib/helpers/addQueryParams';
 
+export type NotificationType = 'newFriend' | 'newMessage' | 'messageReceived'
+
 export interface IUser {
     id: string
     username: string
@@ -10,7 +12,6 @@ export interface IUser {
     interests: string
     gender: string
     photos: string[]
-    // friends: IFriend[]
 }
 
 export interface IFriend {
@@ -25,6 +26,7 @@ export interface IProfileData {
     city: string
     interests: string
     gender: string
+    id: string
 }
 
 class UsersStore {
@@ -35,10 +37,10 @@ class UsersStore {
     search: string | undefined = undefined
     messages: string[] = []
     isMessageSent: boolean = false
-    isMessageReceived: boolean = false
+    messageReceivedNotificationsCount: number = 0
     messageError: string = ''
     friends: IFriend[] = []
-    isFriendRequestSent: boolean = false
+    friendRequestNotificationsCount: number = 0
     friendshipError: string = ''
 
     constructor() {
@@ -46,11 +48,17 @@ class UsersStore {
     }
 
     fetchProfile = flow(function* (this: UsersStore, userId) {
-        const response = yield axios.get(`http://localhost:8000/users/${userId}`);
-        this.profileData = response.data
+
+        try {
+            const response = yield axios.get(`http://localhost:8000/users/${userId}`);
+            this.profileData = response.data
+        } catch (error) {
+            console.log(error);
+
+        }
     })
 
-    fetchUsers = flow(function* (this: UsersStore) {
+    fetchUsers = flow(function* (this: UsersStore, isProfilePage?: boolean) {
         try {
             this.isFetching = true
             const response = yield axios.get('http://localhost:8000/664/users', {
@@ -61,7 +69,7 @@ class UsersStore {
             })
             this.users = response.data
 
-            addQueryParams({
+            !isProfilePage && addQueryParams({
                 search: this.search,
                 age: this.age ?? '',
             })
@@ -91,9 +99,10 @@ class UsersStore {
 
         if (userIndex !== -1) {
             this.isMessageSent = false
-            //также добавляю сообщение в массив в сторе т.к. сервер не поддерживает изменение этих данных
+            //добавляю сообщение в массив в сторе т.к.сервер пока не поддерживает изменение этих данных
             this.messages.push(message)
             this.isMessageSent = true
+            this.messageReceivedNotificationsCount = 0
         } else {
             this.messageError = 'Ошибка! Сообщение не отправлено'
         }
@@ -104,22 +113,23 @@ class UsersStore {
         const user1 = this.users.find((user) => user.id === ownerId);
         const user2 = this.users.find((user) => user.id === friendId);
         if (user1 && user2) {
-            this.isFriendRequestSent = false
             this.friends.push(user2);
-            this.isFriendRequestSent = true
+            this.friendRequestNotificationsCount += 1
         }
         else {
             this.friendshipError = 'Ошибка!'
         }
     }
 
-    readMessage() {
-        this.isMessageReceived = true
-        this.isFriendRequestSent = false
+    readMessage(type: NotificationType) {
+        this.friendRequestNotificationsCount = 0
         this.isMessageSent = false
+        if (type === 'newMessage') {
+            this.messageReceivedNotificationsCount += 1
+        }
     }
 
-    
+
 
 }
 

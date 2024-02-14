@@ -1,0 +1,27 @@
+.SignupPage {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.signupSucces {
+    font-style: italic;
+}
+
+.signupSucces a {
+    text-decoration: none;
+    padding: 0px 5px;
+    color: #5a7fd3;
+    font-style: italic;
+}
+
+.signupSucces a:hover {
+    color: #2553c0;
+}
