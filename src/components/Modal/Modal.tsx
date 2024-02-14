@@ -1,15 +1,15 @@
-import { useEffect } from 'react'
-import { createPortal } from 'react-dom'
-import s from './Modal.module.css'
-import React from 'react'
+import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import s from './Modal.module.css';
+import React from 'react';
 
-type PropsType = {
-    isOpen: boolean
-    children: React.ReactNode
-    closeModal: () => void
+interface IModalProps {
+    isOpen: boolean;
+    children: React.ReactNode;
+    closeModal: () => void;
 }
 
-export const Modal:React.FC<PropsType> = (props) => {
+export const Modal:React.FC<IModalProps> = (props) => {
     useEffect(() => {
         const keydownListener = (event: KeyboardEvent) => {
             if (event.key === 'Escape' && props.isOpen) {

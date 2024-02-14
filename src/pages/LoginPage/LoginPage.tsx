@@ -3,9 +3,11 @@ import React, { FC, useCallback } from 'react';
 import { Navigate } from 'react-router-dom';
 import { LoginForm } from '../../components/LoginForm/LoginForm';
 import authStore, { IUserData } from '../../store/authStore';
-import cls from './LoginPage.module.scss'
+import cls from './LoginPage.module.scss';
 
 export const LoginPage: FC = observer(() => {
+    
+    const {isLoading, error, isAuthorized} = authStore;
 
     const onAuthorizeHandler = useCallback((data: IUserData) => {
         authStore.login(data);
@@ -14,10 +16,6 @@ export const LoginPage: FC = observer(() => {
     const onClearErrors = useCallback(() => {
         authStore.clearError();
     }, [])
-
-    const isLoading = authStore.isLoading;
-    const error = authStore.error;
-    const isAuthorized = authStore.isAuthorized;
 
     if (isAuthorized) {
         return <Navigate to='/profile' />

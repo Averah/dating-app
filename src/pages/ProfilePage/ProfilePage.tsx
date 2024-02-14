@@ -8,6 +8,7 @@ import usersStore from '../../store/usersStore';
 import cls from './ProfilePage.module.scss';
 
 export const ProfilePage: FC = observer(() => {
+
     const isAuthorized = authStore.isAuthorized;
     const authorizedUserId = authStore.userData.id;
     const profileData = usersStore.profileData;
@@ -18,31 +19,30 @@ export const ProfilePage: FC = observer(() => {
 
     const params = useParams();
 
-    const userId = params.userId as string
+    const userId = params.userId;
 
     const addToFriends = useCallback(() => {
-        (userId  && authorizedUserId) && usersStore.addToFriends(userId, authorizedUserId);
+        (userId && authorizedUserId) && usersStore.addToFriends(userId, authorizedUserId);
 
     }, [userId, authorizedUserId]);
 
 
     const sendMessage = useCallback((message: string) => {
-        usersStore.sendMessage(message)
-    }, [])
+        authorizedUserId && usersStore.sendMessage(message, authorizedUserId);
+    }, []);
 
     useEffect(() => {
         let userId = params.userId ? params.userId : null;
         if (!userId) {
             userId = authorizedUserId ?? null;
-        }
+        };
 
-        
-        userId && usersStore.fetchProfile(userId)
-        usersStore.fetchUsers(true)
+        userId && usersStore.fetchProfile(userId);
+        usersStore.fetchUsers(true);
     }, [params.userId, authorizedUserId]);
 
     useEffect(() => {
-        return usersStore.clearProfileData()
+        return usersStore.clearProfileData();
     }, [])
 
     if (!isAuthorized) {

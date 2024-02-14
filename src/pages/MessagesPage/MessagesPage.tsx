@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { FC, useCallback } from 'react';
+import React, { FC } from 'react';
 import Messages from '../../components/Messages/Messages';
 import usersStore from '../../store/usersStore';
 import cls from './MessagesPage.module.scss';

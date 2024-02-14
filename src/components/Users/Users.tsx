@@ -6,8 +6,8 @@ import cls from './Users.module.scss';
 import { Loader } from '../Loader/Loader';
 
 interface IUsersProps {
-    users: Array<IUser>
-    isFetching: boolean
+    users: Array<IUser>;
+    isFetching: boolean;
 }
 
 const Users: React.FC<IUsersProps> = memo(({ users, isFetching }) => {

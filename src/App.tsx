@@ -6,10 +6,10 @@ import { Header } from './components/Header/Header';
 import { Loader } from './components/Loader/Loader';
 import { useEventNotification } from './lib/hooks/useEventNotification';
 import LoginPage from './pages/LoginPage/LoginPage';
-import MessagesPage from './pages/MessagesPage/MessagesPage';
+import MessagePageLazy from './pages/MessagesPage/MessagesPageLazy';
 import { ProfilePage } from './pages/ProfilePage/ProfilePage';
 import SignupPage from './pages/SignupPage/SignupPage';
-import UsersPage from './pages/UsersPage/UsersPage';
+import UsersPageLazy from './pages/UsersPage/UsersPageLazy';
 import authStore from './store/authStore';
 
 const App = observer(() => {
@@ -32,8 +32,8 @@ const App = observer(() => {
                 <Route path={'/login'} element={<LoginPage />} />
                 <Route path={'/signup'} element={<SignupPage />} />
                 <Route path={'/profile/:userId?'} element={<ProfilePage />} />
-                <Route path={'/users'} element={<UsersPage />} />
-                <Route path={'/messages'} element={<MessagesPage />} />
+                <Route path={'/users'} element={<UsersPageLazy />} />
+                <Route path={'/messages'} element={<MessagePageLazy />} />
               </Routes>
             </Suspense>
           </div>

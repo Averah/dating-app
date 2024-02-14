@@ -15,11 +15,7 @@ export const SignupPage: FC = observer(() => {
         authStore.clearError();
     }, [])
 
-
-    const isLoading = authStore.isLoading;
-    const error = authStore.error;
-    const isAuthorized = authStore.isAuthorized;
-    const isSignedUp = authStore.isSignedUp;
+    const { isLoading, error, isAuthorized, isSignedUp } = authStore;
 
     if (isAuthorized) {
         return <Navigate to='/profile' />
@@ -29,14 +25,13 @@ export const SignupPage: FC = observer(() => {
         <div className={cls.SignupPage}>
             <div className={cls.title}>Регистрация</div>
             {isSignedUp && (
-                <div className={cls.signupSucces}>
+                <div className={cls.signupSuccess}>
                     Регистрация прошла успешно.
                     <NavLink to='/login' className={cls.signUpLink}>Войти</NavLink>
 
                 </div>
             )}
             <SignupForm signUp={onSignUpHandler} isLoading={isLoading} clearErrors={onClearErrors} error={error} />
-
         </div>
     );
 });

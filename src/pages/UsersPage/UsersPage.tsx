@@ -6,15 +6,14 @@ import cls from './UsersPage.module.scss';
 import { UserFilters } from '../../components/UsersFilters/UserFilters';
 import authStore from '../../store/authStore';
 
-
 const UsersPage: FC = observer(() => {
-    const users = usersStore.users;
-    const isFetching = usersStore.isFetching;
+
+    const { users, isFetching } = usersStore;
 
     const filteredUsers = useMemo(() => users.filter(user => user.id !== authStore.userData.id), [users]);
 
     useEffect(() => {
-        usersStore.fetchUsers()
+        usersStore.fetchUsers();
     }, []);
 
     const onFiltersChange = useCallback(() => {

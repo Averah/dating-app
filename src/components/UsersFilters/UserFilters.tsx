@@ -8,7 +8,6 @@ import cls from './UserFilters.module.scss';
 
 interface UserFiltersProps {
     onFiltersChange: () => void;
-    className?: string;
 }
 
 //опции возрастов

@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { Carousel } from 'antd';
 import defaultAvatar from '../../assets/defaultAvatar.png';
 import cls from './PhotoCarousel.module.scss';
@@ -20,12 +20,12 @@ const PhotoCarousel: React.FC<IPhotoCarouselProps> = memo(({ photos }) => {
 
     return (
         <>
-        <Carousel className={cls.PhotoCarousel} >
-            {photos.map((photo, index) => (
+            <Carousel className={cls.PhotoCarousel} >
+                {photos.map((photo, index) => (
                     <img src={photo} className={cls.photo} key={index} alt={`Photo ${index + 1}`} />
-            ))}
-        </Carousel>
-</>
+                ))}
+            </Carousel>
+        </>
     );
 });
 

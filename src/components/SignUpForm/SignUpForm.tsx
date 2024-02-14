@@ -1,20 +1,20 @@
 import { memo, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ReactComponent as EyeIcon } from '../../assets/eyeIcon.svg';
-import cls from './SignUpForm.module.scss'
+import cls from './SignUpForm.module.scss';
 import { Input } from '../../ui/Input/Input';
 import Button from "../../ui/Button/Button";
 import { IUserData } from "../../store/authStore";
 import { NavLink } from 'react-router-dom';
 
-interface SignupFormProps {
+interface ISignupFormProps {
     signUp: (data: IUserData) => void;
     clearErrors: () => void;
     isLoading: boolean;
     error?: string;
 }
 
-export const SignupForm: React.FC<SignupFormProps> = memo(({ signUp, isLoading, clearErrors, error }) => {
+export const SignupForm: React.FC<ISignupFormProps> = memo(({ signUp, isLoading, clearErrors, error }) => {
     const [passwordShown, setPasswordShown] = useState(false);
 
     const togglePasswordVisibility = () => {

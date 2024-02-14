@@ -26,7 +26,7 @@ const checkHasSameInterests = (myInterests: string, userInterests: string) => {
     return false
 }
 
-interface ProfileProps {
+interface IProfileProps {
     profileData: IProfileData
     isOwner: boolean
     isMessageSent: boolean
@@ -35,18 +35,17 @@ interface ProfileProps {
     sendMessage: (message: string) => void
     addToFriends: () => void
     storeFriends: IFriend[]
-    userId: string
+    userId?: string
 }
 
-const Profile: React.FC<ProfileProps> = observer((props) => {
+const Profile: React.FC<IProfileProps> = observer((props) => {
 
     const { profileData, isOwner, ownerInterests, sendMessage, messages, addToFriends, storeFriends, isMessageSent, userId } = props;
     const { username, photos, friends, age, city, interests, gender } = profileData;
 
-    const isOwnerFriend = usersStore.friends?.find(user => user.id === userId)
+    const isOwnerFriend = usersStore.friends?.find(user => user.id === userId);
 
     const [isMessageFormOpen, setIsMessageFormOpen] = useState(false);
-
 
     const closeModal = useCallback(() => {
         setIsMessageFormOpen(false);
@@ -76,9 +75,10 @@ const Profile: React.FC<ProfileProps> = observer((props) => {
             <div className={cls.actions}>
                 {hasSomeInterests && <Button onClick={openModal} className={cls.actionBtn}>Написать сообщение</Button>}
                 {!isOwnerFriend ? (
-                    <Button onClick={addToFriends} className={cls.actionBtn}>Добавить в друзья</Button>
+                    <div className={cls.friendRequest}><Button onClick={addToFriends} className={cls.actionBtn}>Добавить в друзья</Button></div>
+
                 ) : (
-                    <div className={cls.friendRequestInfo}>Запрос в друзья отправлен</div>
+                    <div className={cls.friendRequest}>Запрос в друзья отправлен</div>
                 )}
             </div>
         )

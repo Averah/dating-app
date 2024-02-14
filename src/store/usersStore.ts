@@ -54,7 +54,6 @@ class UsersStore {
             this.profileData = response.data
         } catch (error) {
             console.log(error);
-
         }
     })
 
@@ -94,7 +93,7 @@ class UsersStore {
     }
 
     //id авторизованного пользователя в кач-ве заглушки, чтобы показать уведомление о сообщении на странице профиля
-    sendMessage(message: string, id = "ZgGEuFz") {
+    sendMessage(message: string, id: string) {
         const userIndex = this.users.findIndex((user) => user.id === id);
 
         if (userIndex !== -1) {

@@ -45,9 +45,9 @@
       "city": "Череповец",
       "interests": "Плавание, вязание, гонки",
       "gender": "Женский",
-      "friends": {
+      "friends": [{
         "id": "ZgGEuFz"
-      },
+      }],
       "photos": []
     },
     {

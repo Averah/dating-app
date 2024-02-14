@@ -1,5 +1,5 @@
 .MessageForm {
-    width: 350px;
+    width: 100%;
     height: 250px;
     display: flex;
     flex-direction: column;
@@ -26,4 +26,11 @@ textarea:focus {
 
 .messageStatus {
     align-self: center;
+}
+
+
+@media (max-width: 570px) {
+    .textarea {
+        width: 250px;
+    }
 }

@@ -1,11 +1,12 @@
+import { Button } from 'antd';
+import { observer } from 'mobx-react-lite';
 import React, { useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
-import cls from './Header.module.scss';
-import { observer } from 'mobx-react-lite';
 import authStore from '../../store/authStore';
-import { Button } from 'antd';
+import cls from './Header.module.scss';
 
 export const Header: React.FC = observer(() => {
+
     const logOut = useCallback(() => {
         authStore.logout()
     }, []);

@@ -1,16 +1,14 @@
-import React, { FC } from 'react';
-import classNames from 'classnames';
-import cls from './Loader.module.scss';
 import { Spin } from 'antd';
+import React, { FC, memo } from 'react';
 
 interface LoaderProps {
   className?: string;
 }
 
-export const Loader: FC<LoaderProps> = ({ className }) => {
+export const Loader: FC<LoaderProps> = memo(({ className }) => {
     return (
-        <div className={classNames(cls.Loader, className)}>
+        <div className={className}>
             <Spin size="large" />
         </div>
     );
-};
+});

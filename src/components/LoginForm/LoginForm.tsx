@@ -1,20 +1,20 @@
 import { memo, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ReactComponent as EyeIcon } from '../../assets/eyeIcon.svg';
-import cls from './LoginForm.module.scss'
+import cls from './LoginForm.module.scss';
 import { Input } from '../../ui/Input/Input';
 import Button from "../../ui/Button/Button";
 import { IUserData } from "../../store/authStore";
 import { NavLink } from 'react-router-dom';
 
-interface FormProps {
+interface IFormProps {
     authorize: (data: IUserData) => void;
     clearErrors: () => void;
     isLoading: boolean;
     error: string;
 }
 
-export const LoginForm: React.FC<FormProps> = memo(({ authorize, isLoading, clearErrors, error }) => {
+export const LoginForm: React.FC<IFormProps> = memo(({ authorize, isLoading, clearErrors, error }) => {
     const [passwordShown, setPasswordShown] = useState(false);
 
     const togglePasswordVisibility = () => {
@@ -74,8 +74,6 @@ export const LoginForm: React.FC<FormProps> = memo(({ authorize, isLoading, clea
             <Button type="submit" className={cls.submitBtn} disabled={isLoading}>
                 {isLoading ? 'Выполняется вход...' : 'Войти'}
             </Button>
-
-
         </form>
     );
 });

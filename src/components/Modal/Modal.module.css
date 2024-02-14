@@ -21,3 +21,12 @@
     max-width: 85%;
     box-shadow: 2px 4px 27px 6px rgba(0, 0, 0, 0.44)
 }
+
+
+
+@media (max-width: 570px) {
+    .content {
+        padding: 20px;
+    }
+
+}

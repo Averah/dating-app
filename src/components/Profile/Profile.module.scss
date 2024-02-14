@@ -31,14 +31,21 @@
     text-align: center;
 }
 
-.friendRequestInfo {
-    font-size: 14px;
+.friendRequest {
+    font-size: 15px;
     font-style: italic;
+    height: 32px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .actionBtn {
     color: #3e5a85;
     background-color: transparent;
+    font-style:normal;
+    width: 100%;
 }
 
 .photoCarousel {

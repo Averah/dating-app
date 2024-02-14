@@ -1,26 +1,26 @@
-import React from "react";
+import React, { memo } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../../ui/Button/Button";
-import cls from './MessageForm.module.scss'
+import cls from './MessageForm.module.scss';
 
 interface MessageFormProps {
-    sendMessage: (message:string) => void
-    isMessageSent: boolean
+    sendMessage: (message:string) => void;
+    isMessageSent: boolean;
 }
 
-type UserSubmitForm = {
+interface IUserSubmitForm  {
     message: string
 }
 
-const MessageForm: React.FC<MessageFormProps> = ({ sendMessage, isMessageSent }) => {
+const MessageForm: React.FC<MessageFormProps> = memo(({ sendMessage, isMessageSent }) => {
     const {
         reset,
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<UserSubmitForm>({ mode: "onChange" });
+    } = useForm<IUserSubmitForm>({ mode: "onChange" });
 
-    const onSubmit = (data: UserSubmitForm) => {
+    const onSubmit = (data: IUserSubmitForm) => {
         sendMessage(data.message)
         reset();
     };
@@ -42,6 +42,6 @@ const MessageForm: React.FC<MessageFormProps> = ({ sendMessage, isMessageSent })
             </div>
         </form>
     );
-};
+});
 
 export default MessageForm;
