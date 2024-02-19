@@ -11,6 +11,8 @@ import { ProfilePage } from './pages/ProfilePage/ProfilePage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import UsersPageLazy from './pages/UsersPage/UsersPageLazy';
 import authStore from './store/authStore';
+import usersStore from './store/usersStore';
+import { notification } from 'antd';
 
 const App = observer(() => {
 
@@ -19,6 +21,14 @@ const App = observer(() => {
   }, []);
 
   useEventNotification();
+
+  // зачищаем пользовательские данные при разлогине
+  useEffect(() => {
+    if (authStore.isAuthorizedChecked && !authStore.isAuthorized) {
+      usersStore.clearData()
+      notification.destroy()
+    }
+  }, [authStore.isAuthorized, authStore.isAuthorizedChecked]);
 
   return (
     <div className={cls.App}>

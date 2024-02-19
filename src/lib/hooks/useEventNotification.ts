@@ -1,18 +1,21 @@
 import { notification } from "antd";
 import { useEffect } from "react";
+import authStore from "../../store/authStore";
 import usersStore, { NotificationType } from "../../store/usersStore";
 
 export const useEventNotification = () => {
     const { friendRequestNotificationsCount, messages, isMessageSent, messageReceivedNotificationsCount } = usersStore;
     const lastMessage = messages[messages.length - 1]
     const showNotification = (type: NotificationType, message: string, description: string) => {
-        notification.open({
-            message,
-            description,
-            duration: 0,
-            placement: 'bottomRight',
-            onClose: () => usersStore.readMessage(type)
-        });
+        if (authStore.isAuthorized) {
+            notification.open({
+                message,
+                description,
+                duration: 0,
+                placement: 'bottomRight',
+                onClose: () => usersStore.readMessage(type)
+            });
+        }
     };
 
     useEffect(() => {

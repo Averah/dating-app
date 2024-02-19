@@ -128,6 +128,15 @@ class UsersStore {
         }
     }
 
+    clearData() {
+        this.messageError = '';
+        this.friendshipError = '';
+        this.messages = [];
+        this.friends = [];
+        this.messageReceivedNotificationsCount = 0;
+        this.friendRequestNotificationsCount = 0;
+    }
+
 
 
 }
